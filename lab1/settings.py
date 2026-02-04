@@ -10,38 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY', 
-    default='django-insecure-*pgkn(28-w!tvt_6rx!8tf73ht#r9k=qod^#x90u6(8fjmd9)2'
-)
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-*pgkn(28-w!tvt_6rx!8tf73ht#r9k=qod^#x90u6(8fjmd9)2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Render дээр байгаа эсэхээс хамааруулан автоматаар False болгоно
-DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
-
-# Render-д зориулсан ALLOWED_HOSTS тохиргоо
-ALLOWED_HOSTS = []
-
-# Render өөрөө RENDER_EXTERNAL_HOSTNAME env var өгдөг тул автоматаар нэмнэ
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
-# Туршихад түр зуур '*' тавьж болно (дараа нь устгаарай!)
-# ALLOWED_HOSTS = ['*']   # ← Энд түр зуур асааж туршиж болно
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,11 +41,8 @@ INSTALLED_APPS = [
     'app_two',
 ]
 
-
-# Whitenoise – static файлуудыг зөв serve хийхэд хэрэгтэй (Render дээр чухал)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',          # ← Энд нэмэгдсэн
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,7 +50,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'lab1.urls'
 
@@ -87,7 +71,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lab1.wsgi.application'
 
 
-# Database – Render дээр PostgreSQL ашиглахыг зөвлөдөг (одоогоор SQLite үлдээсэн)
+# Database
+# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -95,14 +81,10 @@ DATABASES = {
     }
 }
 
-# Хэрэв Render-ийн PostgreSQL-г ашиглах бол доорхыг ашигла (dj-database-url суулгах хэрэгтэй)
-# import dj_database_url
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-# }
-
 
 # Password validation
+# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -120,15 +102,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
+# https://docs.djangoproject.com/en/6.0/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'                      # ← collectstatic энд цуглуулна
+# https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-# Whitenoise-д зориулсан тохиргоо (compressed файлууд)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = 'static/'
+
