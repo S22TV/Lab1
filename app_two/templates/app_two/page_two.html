@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <title>ЛАБ№1</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'app_one/logo.png' %}" >
+</head>
+<body style="padding: 40px; font-family: sans-serif;">
+
+    <h1>Тавтай морил</h1>
+    <img src="{% static 'app_one/dota2.gif' %}" alt="dotka">
+    <br>
+    <br>
+    <a href="{% url 'app_one:page_one' %}" style="font-size: 22px; color: purple; text-decoration: none;">
+        өмнөх хуудас
+    </a>
+
+</body>
+</html>
